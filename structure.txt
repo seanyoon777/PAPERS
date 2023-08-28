@@ -1,0 +1,6 @@
+/my_project
+|-- modules
+|   |-- dataProcessor.py
+|-- example_data
+|   |-- dataProcessor.py
+|-- main.py
