@@ -9,4 +9,4 @@ __pycache__/
 
 .ipynb_checkpoints/
 *.ipynb/
-__example_data__/
+example_data
