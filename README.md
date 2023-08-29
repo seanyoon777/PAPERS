@@ -8,7 +8,7 @@ That justifies half of the motivation. But why fencing? Well, first of all, the 
   <img src="images/paris.png" alt="Ah, I love France." width="600"/>
   <br>Ah, I love France.
 </p>
-Also, with COVID striking the world a few years ago, I thought the tech world, one of the sectors hit the hardest by COVID, just have to pay fencing a sort of tribute for being the most sensible sport. Everyone wears masks, gloves, and stabs whoever that fails to socially distance. 
+Also, with COVID striking the world a few years ago, I thought the tech world, one of the sectors hit the hardest by COVID, just have to pay fencing a sort of tribute for being the most sensible sport. Everyone wears masks, gloves, and stabs whoever that doesn't socially distance. 
 <p align="center">
   <img src="images/justification.jpg" alt="Fencing and COVID." width="600"/>
   <br>Fig 1. The intricate relationship between fencing and COVID
