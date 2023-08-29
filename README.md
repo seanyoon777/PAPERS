@@ -48,12 +48,12 @@ As an example, this a ranking of the top 6 athletes in the women's foil world ch
 
 |Rank| Athlete Name              | Average Performance   |Medal Record    |
 |:--:|:-------------------------:|----------------------:|----------------------:|
-|1   | Valentina Vezzali         | 1.7234460489484567    |🥇x42 🥈x14 🥉x9         |
-|2   | Luan Jujie                | 1.665638345813813     |🥇x2                   |
-|3   | Kerstin Palm              | 1.5630608026552961    |(Seven olympics)       |
-|4   | Larisa Korobeynikova      | 1.5334254138823327    |🥇x7 🥈x10 🥉x5 |
+|1   | Valentina Vezzali         | 1.72344604894846    |🥇x42 🥈x14 🥉x9         |
+|2   | Luan Jujie                | 1.66563834581381     |🥇x2                   |
+|3   | Kerstin Palm              | 1.56306080265530    |(Seven olympics)       |
+|4   | Larisa Korobeynikova      | 1.53342541388233    |🥇x7 🥈x10 🥉x5 |
 |5   | Arianna Errigo            | 1.52210614397329      |🥇x11 🥈x8 🥉x6 |
-|6   | Katja Wachter           | 1.4938356135501731    |🥇x10 🥈x3 🥉x6 |
+|6   | Katja Wachter             | 1.49383561355017    |🥇x10 🥈x3 🥉x6 |
   
 ## Setup
 To use the software, 
