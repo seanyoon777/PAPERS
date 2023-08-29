@@ -42,22 +42,16 @@ The software will return three pdf files in a specified directory, with a random
 ## Example Results 
 This repository also contains two example datasets under the directory 'example_outputs', which are from men's epee Olympic results from 1932 to 2016, and women's foil world championship results from 2014 to 2021 (the women's dataset was from this [Kaggle dataset](https://www.kaggle.com/datasets/amichaelsen/fie-fencing-womens-foil-data)). 
 
-As an example, this a ranking of the top 12 athletes in the women's foil world championship results from this model, featuring a few of the world's greatest fencers and Kiefer Lee, the current foil world champion.  
+As an example, this a ranking of the top 6 athletes in the women's foil world championship results from this model. Medal records are included as a metric for the accuracy of the model. 
 
-|Rank| Athlete Name              | Average Performance   |
-|:--:|:-------------------------:|----------------------:|
-|1   | VEZZALI Valentina         | 1.7234460489484567    |
-|2   | LUAN Jujie                | 1.665638345813813     |
-|3   | PALM Kerstin              | 1.5630608026552961    |
-|4   | RODIONOVA Inessa          | 1.5475675205685937    |
-|5   | KOROBEYNIKOVA Larisa      | 1.5334254138823327    |
-|6   | ERRIGO Arianna            | 1.52210614397329      |
-|7   | WAECHTER Katja            | 1.4938356135501731    |
-|8   | MAMEDOVA Aila             | 1.4621288070949765    |
-|9   | WELTZIEN Silke            | 1.4492559058235386    |
-|10  | HILGERS Britta            | 1.4489876062703917    |
-|11  | DEMAILLE Marie Chantal    | 1.4233705516413548    |
-|12  | KIEFER Lee                | 1.4222100381695792    |
+|Rank| Athlete Name              | Average Performance   |Medal Record    |
+|:--:|:-------------------------:|----------------------:|----------------------:|
+|1   | Valentina Vezzali         | 1.7234460489484567    |🥇x42 🥈x14 🥉x9         |
+|2   | Luan Jujie                | 1.665638345813813     |🥇x2                   |
+|3   | Kerstin Palm              | 1.5630608026552961    |(Seven olympics)       |
+|4   | Larisa Korobeynikova      | 1.5334254138823327    |🥇x7 🥈x10 🥉x5 |
+|5   | Arianna Errigo            | 1.52210614397329      |🥇x11 🥈x8 🥉x6 |
+|6   | Katja Wachter           | 1.4938356135501731    |🥇x10 🥈x3 🥉x6 |
 
 ## Setup
 To use the software, 
