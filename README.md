@@ -47,7 +47,7 @@ This repository also contains two example datasets under the directory 'example_
 As an example, this a ranking of the top 6 athletes in the women's foil world championship results from this model. Medal records are included as a metric for the accuracy of the model. 
 
 |Rank| Athlete Name              | Average Performance   |Medal Record    |
-|:--:|:-------------------------:|----------------------:|----------------------:|
+|:--:|:-------------------------|----------------------:|----------------------:|
 |1   | Valentina Vezzali         | 1.72344604894846    |🥇x42 🥈x14 🥉x9         |
 |2   | Luan Jujie                | 1.66563834581381     |🥇x2                   |
 |3   | Kerstin Palm              | 1.56306080265530    |(Seven olympics)       |
