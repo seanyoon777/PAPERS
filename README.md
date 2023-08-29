@@ -46,7 +46,6 @@ This repository also contains two example datasets under the directory 'example_
 
 As an example, this a ranking of the top 6 athletes in the women's foil world championship results from this model. Medal records are included as a metric for the accuracy of the model. 
 
-<center>
 |Rank| Athlete Name              | Average Performance   |Medal Record    |
 |:--:|:-------------------------:|----------------------:|----------------------:|
 |1   | Valentina Vezzali         | 1.7234460489484567    |🥇x42 🥈x14 🥉x9         |
@@ -55,7 +54,6 @@ As an example, this a ranking of the top 6 athletes in the women's foil world ch
 |4   | Larisa Korobeynikova      | 1.5334254138823327    |🥇x7 🥈x10 🥉x5 |
 |5   | Arianna Errigo            | 1.52210614397329      |🥇x11 🥈x8 🥉x6 |
 |6   | Katja Wachter           | 1.4938356135501731    |🥇x10 🥈x3 🥉x6 |
-</center>
   
 ## Setup
 To use the software, 
