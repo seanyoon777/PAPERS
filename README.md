@@ -22,7 +22,7 @@ On an additional note, although it had been developed for fencing, it can be use
 ## More serious stuff
 So, how does the software work? Below is an illustration of the ideas behind the paper. 
 <p align="center">
-  <img src="images/model.png" alt="Model illustration." width="750"/>
+  <img src="images/model.png" alt="Model illustration." width="1000"/>
   <br>Visualization of the Model
 </p>
 Three key ideas behind the paper are: (1) a probability distribution assigned to each athlete to represent performance, (2) a holistic performance indicator for each match, and (3) an iterative observation and non-observation update process. 
