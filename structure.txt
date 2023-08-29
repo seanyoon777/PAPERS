@@ -2,5 +2,6 @@
 |-- modules
 |   |-- dataProcessor.py
 |-- example_data
-|   |-- dataProcessor.py
+|   |-- mens_epee_olympics.csv
 |-- main.py
+|-- README.md
