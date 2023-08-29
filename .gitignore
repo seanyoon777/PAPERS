@@ -8,5 +8,4 @@ __pycache__/
 *.egg-info/
 
 .ipynb_checkpoints/
-*.ipynb/
-example_data
+*.ipynb
