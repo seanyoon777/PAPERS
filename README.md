@@ -5,14 +5,15 @@ The motivation behind creating this software was mostly to rank individual fence
 
 That justifies half of the motivation. But why fencing? Well, first of all, the 2024 Paris olympics are coming up, and they plan to hold the fencing matches in this beautiful stadium. How could we not talk about fencing? 
 <p align="center">
-  <img src="images/paris.png" alt="Ah, I love France." width="500"/>
+  <img src="images/paris.png" alt="Ah, I love France." width="600"/>
   <br>Ah, I love France.
 </p>
 Also, with COVID striking the world a few years ago, I thought the tech world, one of the sectors hit the hardest by COVID, just have to pay fencing a sort of tribute for being the most sensible sport. Everyone wears masks, gloves, and stabs whoever that fails to socially distance. 
 <p align="center">
-  <img src="images/justification.jpg" alt="Fencing and COVID." width="500"/>
+  <img src="images/justification.jpg" alt="Fencing and COVID." width="600"/>
   <br>Fig 1. The intricate relationship between fencing and COVID
 </p>
+
 So, why not fencing? 
 
 Thus, me and my friends had wrote a paper (available [here](https://www.seanyoonbio.com/_files/ugd/577e3b_44a7ff922f504a058afc60882d9b4f12.pdf)) on developing a holistic athlete ranking algorithm, and this software is drawn from this paper. This version, however, contains some updates from the paper to increase usability (memory efficiency, runtime, etc), and model accuracy. Also, while the initial model had been developed to find a time-independent GOAT (Greatest of All Time), this model has undergone some changes to accord greater weight on current performance. 
@@ -25,6 +26,7 @@ So, how does the software work? Below is an illustration of the ideas behind the
   <img src="images/model.png" alt="Model illustration." width="1000"/>
   <br>Visualization of the Model
 </p>
+
 Three key ideas behind the paper are: (1) a probability distribution assigned to each athlete to represent performance, (2) a holistic performance indicator for each match, and (3) an iterative observation and non-observation update process. 
 
 Firstly, a probability distribution with a Gaussian prior and likelihood is assigned to each athlete to quantify performance, instead of a single value as in most models. 
@@ -44,6 +46,7 @@ This repository also contains two example datasets under the directory 'example_
 
 As an example, this a ranking of the top 6 athletes in the women's foil world championship results from this model. Medal records are included as a metric for the accuracy of the model. 
 
+<center>
 |Rank| Athlete Name              | Average Performance   |Medal Record    |
 |:--:|:-------------------------:|----------------------:|----------------------:|
 |1   | Valentina Vezzali         | 1.7234460489484567    |🥇x42 🥈x14 🥉x9         |
@@ -52,7 +55,8 @@ As an example, this a ranking of the top 6 athletes in the women's foil world ch
 |4   | Larisa Korobeynikova      | 1.5334254138823327    |🥇x7 🥈x10 🥉x5 |
 |5   | Arianna Errigo            | 1.52210614397329      |🥇x11 🥈x8 🥉x6 |
 |6   | Katja Wachter           | 1.4938356135501731    |🥇x10 🥈x3 🥉x6 |
-
+</center>
+  
 ## Setup
 To use the software, 
 1. Clone the repository onto your local machine: 
