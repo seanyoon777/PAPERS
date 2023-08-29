@@ -1,5 +1,10 @@
+
+
 /my_project
 |-- modules
+|   |-- dataProcessor.py
+|   |-- iterativeUpdater.py
+|   |-- reporter.py
 |   |-- dataProcessor.py
 |-- example_data
 |   |-- mens_epee_olympics.csv

@@ -1,137 +1,153 @@
+import math
 import numpy as np
+import modules.reporter as reporter
+import modules.paperStats as pstats
 import matplotlib.pyplot as plt
-from scipy.stats import gamma
-from scipy.special import gamma as gamma_distribution
-from scipy.integrate import quad
 
-GAMMA_PRIOR = (10, 10)
+PRIOR = (1., 10.)     # mean, variance
+h = 0.05              # Exponential confidence decay factor over time
+d = 0.1
+MAX_OBSERVATION = 2
 
-def initializeParams(curr_matches, params, curr_names, curr_period, prev_period): 
-    if prev_period is None: 
-        params[curr_period] = {name: GAMMA_PRIOR for name in curr_names}
-    else: 
-        for name in curr_names: 
-            if name not in params[prev_period].keys(): 
-                params[curr_period][name] = GAMMA_PRIOR
-            else: 
-                params[curr_period][name] = params[prev_period][name]
+def modifyGaussianPrior(prior): 
+    global PRIOR
+    PRIOR = prior
     
-def probGreaterThan(params1, params2): 
-    a1, b1 = params1
-    a2, b2 = params2
-    samples1 = gamma.rvs(a1, scale = 1 / b1, size = 10000)
-    samples2 = gamma.rvs(a2, scale = 1 / b2, size = 10000)
-    return (samples1 > samples2).mean()
+def initializeParams(params, all_names, curr_period, prev_period): 
+    '''
+    Initializes the parameters for each athlete's performance function. Brings last data if 
+    present, or initializes with default prior. 
+    '''
+    params[curr_period] = {name: PRIOR for name in all_names}
+    if prev_period is not None: 
+        for name in all_names: 
+            if name in params[prev_period].keys(): 
+                params[curr_period][name] = params[prev_period][name]
         
 def getW(score1, score2): 
     if score1 == score2: 
         return 0.5
     return score1 > score2
 
+def updateNums(match_nums, name1, name2): 
+    match_nums[name1] += 1
+    match_nums[name2] += 1
+    
 def performanceIndicator(score1, score2, params1, params2): 
+    '''
+    Calculates performance indicator for given match. 
+    '''
     W = getW(score1, score2)
-    P = probGreaterThan(params1, params2)
+    P1 = params2[0]
+    P2 = params1[0]
     R = score1 / (score1 + score2)
-    pi1 = W * P + R
-    pi2 = (1 - W) * (1 - P) + (1 - R)
+    pi1 = W * P1 + R
+    pi2 = (1 - W) * P2 + (1 - R)
     return (pi1, pi2)
     
-def performanceIndicatorDict(curr_matches, match_data, prev_params, curr_names, pi_dict, curr_period): 
+def performanceIndicatorDict(curr_matches, match_data, match_nums, prev_params, curr_names, pi_dict, curr_period): 
+    '''
+    Generates a dictionary of current observation period mapped to a dictionary of athlete names 
+    mapped to performance indicators during that observation period. 
+    '''
     pi_dict[curr_period] = {name: [] for name in curr_names}
     for match in curr_matches: 
         _, name1, name2 = match
         score1, score2 = match_data[match]
+        params1 = PRIOR
+        params2 = PRIOR
         
-        if name1 not in prev_params.keys(): 
-            params1 = GAMMA_PRIOR
-        else: 
+        if name1 in prev_params.keys(): 
             params1 = prev_params[name1]
-            
-        if name2 not in prev_params.keys(): 
-            params2 = GAMMA_PRIOR
-        else: 
+        if name2 in prev_params.keys(): 
             params2 = prev_params[name2]
             
         pi1, pi2 = performanceIndicator(score1, score2, params1, params2)
+        updateNums(match_nums, name1, name2)
         
         pi_dict[curr_period][name1].append(pi1)
         pi_dict[curr_period][name2].append(pi2)
 
 def getAllNames(curr_matches): 
     return set(match[1] for match in curr_matches) | set(match[2] for match in curr_matches)
-
-def updateGammaPrior(pi_dict, params, curr_period, name): 
-    pi_list = pi_dict[curr_period][name]
-    n = len(pi_list)
-    a, b = params[curr_period][name]
-    a_n = a + n
-    b_n = b + sum(pi_list)
-    params[curr_period][name] = (a_n, b_n)
     
-def updateObservations(pi_dict, curr_matches, match_data, params, curr_names, curr_period, prev_period): 
-    initializeParams(curr_matches, params, curr_names, curr_period, prev_period)
+def updateObservations(pi_dict, curr_matches, match_data, match_nums, params, curr_names, curr_period, prev_period): 
+    '''
+    Generates performance indicators for given observation period, and updates the performance functions for each
+    athlete. 
+    '''
     if prev_period == None: 
-        performanceIndicatorDict(curr_matches, match_data, params[curr_period], curr_names, pi_dict, curr_period)
+        performanceIndicatorDict(curr_matches, match_data, match_nums, params[curr_period], curr_names, pi_dict, curr_period)
     else: 
-        performanceIndicatorDict(curr_matches, match_data, params[prev_period], curr_names, pi_dict, curr_period)
+        performanceIndicatorDict(curr_matches, match_data, match_nums, params[prev_period], curr_names, pi_dict, curr_period)
     for name in curr_names: 
-        updateGammaPrior(pi_dict, params, curr_period, name)
+        pstats.updateGaussianPrior(pi_dict, params, curr_period, name)
 
-def printOutputs(curr_params, curr_names, type, curr_period): 
-    x = np.linspace(0, 10, 1000)
-    num_plots = len(curr_params.keys())
-    num_rows = -(-num_plots // 5)
-    fig, axes = plt.subplots(nrows=num_rows, ncols=5, figsize=(10, 2 * num_rows))
-    
-    for i, name in enumerate(curr_names): 
-        row = i // 5
-        col = i % 5
-        a, b = curr_params[name]
-        y = gamma.pdf(x, a, scale=1 / b)
-        axes[row, col].plot(x, y)
-        axes[row, col].set_title(name)
-        
-    for i in range(num_plots, num_rows * 5):
-        row = i // 5
-        col = i % 5
-        axes[row, col].axis('off')
-    
-    if type == 'OP': 
-        fig.suptitle(f'Observation, Year {curr_period}', fontsize=16)
-    if type == 'NOP': 
-        fig.suptitle(f'Non-observation, Year {curr_period}', fontsize=16)
-        
-    plt.tight_layout()
-    plt.show()
-    
-# def updateNonObservations(params, curr_names): 
-#     for name in curr_names: 
+# Values of k, c should be empirically determined. 
+def updateUncertaintyMu(mu_old, n, k = 2, c = 2): 
+    obs_uncertainty = k / np.sqrt(n**2 + c**2)
+    return mu_old - (MAX_OBSERVATION - mu_old) * obs_uncertainty * math.exp(h) * d
 
+def updateUncertaintyVar(var_old, n, k = 2, c = 1): 
+    obs_uncertainty = 1 + k / np.sqrt(n**2 + c**2)
+    return var_old * obs_uncertainty * math.exp(h)
+    
+def updateNonObservations(params, pi_dict, match_nums, all_names, curr_period, prev_period): 
+    '''
+    Updates performance functions for given non-observation period. Mean is linearly decayed, while variance
+    is exponentially decayed. 
+    '''
+    if prev_period == None: 
+        return
+    for name in all_names:
+        if name not in pi_dict[curr_period]: 
+            mu_old, var_old = params[prev_period][name]
+        else: 
+            mu_old, var_old = params[curr_period][name] 
+        mu_new = updateUncertaintyMu(mu_old, match_nums[name])
+        var_new = updateUncertaintyVar(var_old, match_nums[name])
+        params[curr_period][name] = (mu_new, var_new)
 
-def bestPerformance(params, athlete_data): 
-    final_dict = {name: -np.inf for name in athlete_data.keys()}
+def avgPerformanceDict(params, athlete_data, all_periods): 
+    '''
+    Generates dictionary of each athlete mapped to an average performance indicator for each observation period. 
+    Also generates dictionary of each athlete mapped to an average performance indicator across all observation
+    periods. 
+    '''
+    averages_dict = {name: [] for name in athlete_data.keys()}
     for name in athlete_data.keys(): 
-        for period in athlete_data[name].keys(): 
-            a, b = params[period][name]
-            result = a / b
-            if result > final_dict[name]: 
-                final_dict[name] = result
-    final_dict = dict(sorted(final_dict.items(), key = lambda item: -item[1]))
-    return final_dict
+        for period in all_periods: 
+            if name in params[period].keys(): 
+                mu, _ = params[period][name]
+                averages_dict[name].append(mu)
+    total_averages_dict = {}
+    for name in averages_dict.keys(): 
+        total_averages_dict[name] = np.mean(averages_dict[name])
+    total_averages_dict = dict(sorted(total_averages_dict.items(), key = lambda item: -item[1]))
+    return total_averages_dict, averages_dict
     
-def PAPERS(period_data, match_data, athlete_data, verbose = False): 
-    params = {period: {} for period in sorted(period_data.keys())}
+def PAPERS(period_data, match_data, athlete_data, modifyPrior = None, verbose = False): 
+    '''
+    PAPERS - probabilistically initializes and updates the performance functions for each athlete. 
+    '''
+    if modifyPrior is not None: 
+        modifyGaussianPrior(modifyPrior)        
+    all_periods = sorted(period_data.keys())
+    params = {period: {} for period in all_periods}
+    match_nums = {name: 0 for name in athlete_data.keys()}
     prev_period = None
     pi_dict = {}
-    for curr_period in sorted(period_data.keys()): 
+    all_names = set()
+    for curr_period in all_periods: 
         curr_matches = period_data[curr_period]
         curr_names = getAllNames(curr_matches)
-        updateObservations(pi_dict, curr_matches, match_data, params, curr_names, curr_period, prev_period)
+        all_names.update(curr_names)
+        initializeParams(params, all_names, curr_period, prev_period)
+        updateObservations(pi_dict, curr_matches, match_data, match_nums, params, curr_names, curr_period, prev_period)
         if verbose: 
-            printOutputs(params[curr_period], curr_names, 'Observation Period', curr_period)
-        #updateNonObservations()
-        #if verbose: 
-        #    printOutputs(params[curr_period], curr_names, 'Non-observation Period', curr_period)
+            fig, axes = reporter.printOutputs(params[curr_period], curr_names, 'Observation Period', curr_period)
+            plt.show()
+        updateNonObservations(params, pi_dict, match_nums, all_names, curr_period, prev_period)
         prev_period = curr_period
-    final_dict = bestPerformance(params, athlete_data)
-    return final_dict, params
+    total_averages_dict, averages_dict = avgPerformanceDict(params, athlete_data, all_periods)
+    return total_averages_dict, averages_dict, params
