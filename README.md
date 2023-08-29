@@ -34,10 +34,10 @@ For each match, both athletes are given a "performance indicator," a value bound
 Then, the model undergoes an iterative process to update the probability distributions during each observation process (season, competition, etc) followed by a subsequent non-observation process (caused by non-season, injury, etc). The observation updates are based on a Bayesian model, while the non-observation process is done by decaying the parameters of the probability distributions. This addresses a common challenge in current models, which is that they cannot account for rankings across multiple competitions or seasons.
 
 ## Usage 
-The software will return three pdf files in a specified directory, with a randomly generated SLURM-job-id-esque 'unique_id' to avoid confusion: 
-- 'rankings_[unique id].pdf': The rankings of each athlete and their overall performance indicators. 
-- 'performance_graphs_[unique id].pdf': The performance graphs for each observation period. 
-- 'performance_values_[unique id].pdf': The performance values for each athlete across observation periods. 
+The software will return three pdf files in a specified directory, with a randomly generated SLURM-job-id-esque `unique_id` to avoid confusion: 
+- `rankings_[unique_id].pdf`: The rankings of each athlete and their overall performance indicators. 
+- `performance_graphs_[unique_id].pdf`: The performance graphs for each observation period. 
+- `performance_values_[unique_id].pdf`: The performance values for each athlete across observation periods. 
 
 ## Example Results 
 This repository also contains two example datasets under the directory 'example_outputs', which are from men's epee Olympic results from 1932 to 2016, and women's foil world championship results from 2014 to 2021 (the women's dataset was from this [Kaggle dataset](https://www.kaggle.com/datasets/amichaelsen/fie-fencing-womens-foil-data)). 
@@ -56,29 +56,29 @@ As an example, this a ranking of the top 6 athletes in the women's foil world ch
 ## Setup
 To use the software, 
 1. Clone the repository onto your local machine: 
-'''
+```
 git clone git@github.com:seanyoon777/PAPERS.git PAPERS
-'''
+```
 You can replace the PAPERS with any directory path of your choice. 
 
-2. Now, set up the Conda environment. Most of the requirements are widely used packages, such as scipy or pandas, except "fpdf". So run either 
-'''
+2. Now, set up the Conda environment. Most of the requirements are widely used packages, such as scipy or pandas, except `fpdf`. So run either 
+```
 conda install -c conda-forge fpdf
-'''
+```
 or 
-'''
+```
 conda env create -f environment.yml
-'''
+```
 and run 
-'''
+```
 conda activate papers
-'''
+```
 
 3. Navigate into the current directory. 
 
-4. The input data should be a csv file with seven columns: 'Year', 'Player1', 'Country1', 'Player2', 'Country2', 'Score1', 'Score2'. 'Year' is the year the match had taken place, and 'Player1' and 'Player2' is the player name or equivalent uniquely identifiable name. 'Score1' and 'Score2' are scores for each player in the given match. 'Country1' and 'Country2' should be the country codes for players, although it is only for player identification purposes. 
+4. The input data should be a csv file with seven columns: `Year`, `Player1`, `Country1`, `Player2`, `Country2`, `Score1`, `Score2`. `Year` is the year the match had taken place, and `Player1` and `Player2` is the player name or equivalent uniquely identifiable name. `Score1` and `Score2` are scores for each player in the given match. `Country1` and `Country2` should be the country codes for players, although it is only for player identification purposes. 
 
 5. To use the model, run the below command on your terminal: 
-'''
+```
 python main.py -f [directory of your csv file] -d [directory you want the pdf files to be created in]
-'''
+```
