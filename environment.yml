@@ -1,0 +1,10 @@
+name: papers
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - fpdf=1.7.2
+  - matplotlib=3.7.1
+  - numpy=1.25.2
+  - pandas=2.0.3
+  - scipy=1.7.1

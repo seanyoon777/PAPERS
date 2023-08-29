@@ -1,6 +1,4 @@
-
-
-/my_project
+/PAPERS
 |-- modules
 |   |-- dataProcessor.py
 |   |-- iterativeUpdater.py
