@@ -16,7 +16,7 @@ Also, with COVID striking the world a few years ago, I thought the tech world, o
 
 So, why not fencing? 
 
-Thus, me and my friends had wrote a paper (available [here](https://www.seanyoonbio.com/_files/ugd/577e3b_44a7ff922f504a058afc60882d9b4f12.pdf)) on developing a holistic athlete ranking algorithm, and this software is drawn from this paper. This version, however, contains some updates from the paper to increase usability (memory efficiency, runtime, etc), and model accuracy. Also, while the initial model had been developed to find a time-independent GOAT (Greatest of All Time), this model has undergone some changes to accord greater weight on current performance. 
+Thus, me and my friends had wrote a paper ([available HERE](https://www.seanyoonbio.com/_files/ugd/577e3b_44a7ff922f504a058afc60882d9b4f12.pdf)) on developing a holistic athlete ranking algorithm, and this software is drawn from this paper. This version, however, contains some updates from the paper to increase usability (memory efficiency, runtime, etc), and model accuracy. Also, while the initial model had been developed to find a time-independent GOAT (Greatest of All Time), this model has undergone some changes to accord greater weight on current performance. 
 
 On an additional note, although it had been developed for fencing, it can be used for any individually played sport. 
 
