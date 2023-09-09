@@ -84,3 +84,5 @@ conda activate papers
 ```
 python main.py -f [directory of your csv file] -d [directory you want the pdf files to be created in]
 ```
+## Acknowledgements
+The initial paper was drafted by Sean Yoon, Moonhyuk Chang, Seungwon Yoo, and Seoyoon Park, with equal contribution. 
